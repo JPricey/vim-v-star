@@ -1,18 +1,15 @@
-vnoremap <silent>* :<c-u>call <SID>SearchVisualSelection(visualmode())<cr><bar>/<c-r>/<cr>
+vnoremap <silent>* :<c-u>call <SID>SearchVisualSelection(visualmode())<cr>/<c-r>/<cr>
 
 function! s:SearchVisualSelection(type)
-  let unnamed_cache = @@
-
   if a:type ==# 'v'
+    let unnamed_cache = @@
     exe "normal! `<v`>y"
-  elseif a:type ==# 'char'
-    exe "normal! `[v`]y"
+    let @/ = @@
+    let @@ = unnamed_cache
+    let @0 = unnamed_cache
   else
-    return
+    " Keep * behaviour for other modes
+    normal! gv
+    let @/ = '\<' . expand('<cword>') . '\>'
   endif
-
-  let @/ = @@
-
-  let @@ = unnamed_cache
-  let @0 = unnamed_cache
 endfunction
