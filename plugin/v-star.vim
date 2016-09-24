@@ -1,4 +1,4 @@
-vnoremap * :<c-u>call <SID>SearchVisualSelection(visualmode())<bar>set hlsearch<cr>
+vnoremap <silent>* :<c-u>call <SID>SearchVisualSelection(visualmode())<bar>set hlsearch<cr>
 
 function! s:SearchVisualSelection(type)
   let unnamed_cache = @@
